@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: banga-db
+spec:
+  replicas: 1
+  serviceName: banga-db
+  selector:
+    matchLabels:
+      app: banga-db
+  template:
+    metadata:
+      labels:
+        app: banga-db
+    spec:
+      containers:
+      - name: mysql
+        image: devopseasylearning/banga-db:v0.0.1
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: my-secret-pw
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-persistent-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: banga-weather
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: banga-weather
+  template:
+    metadata:
+      labels:
+        app: banga-weather
+    spec:
+      containers:
+      - name: banga-weather
+        image: devopseasylearning/banga-weather:v0.0.1
+        env:
+        - name: APIKEY
+          value: ecbc396f46mshb65cbb1f82cf334p1fcc87jsna5e962a3c542
+

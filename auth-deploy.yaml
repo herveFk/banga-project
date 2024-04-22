@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: banga-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: banga-auth
+  template:
+    metadata:
+      labels:
+        app: banga-auth
+    spec:
+      containers:
+      - name: banga-auth
+        image: devopseasylearning/banga-auth:v0.0.1
+        env:
+        - name: DB_HOST
+          value: db
+        - name: DB_PASSWORD
+          value: my-secret-pw
+
